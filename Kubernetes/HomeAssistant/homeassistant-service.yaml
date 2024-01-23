@@ -1,0 +1,14 @@
+# home-assistant-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ydonde-ha-service
+  namespace: homeassistant
+spec:
+  selector:
+    app: ydonde-ha
+  ports:
+    - protocol: TCP
+      port: 8123
+      targetPort: 8123
+  type: NodePort  # Change to NodePort or ClusterIP based on your setup

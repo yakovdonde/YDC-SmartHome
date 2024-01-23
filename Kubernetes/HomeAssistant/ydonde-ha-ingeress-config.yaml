@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: ydonde-ha-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: homeassistant
+spec:
+  ingressClassName: nginx
+#  tls:
+#    - hosts:
+#        - 'www.ydc-ydonde.ddns.net'
+#        - 'ydc-ydonde.ddns.netl'
+##      secretName: tls-secret-prodata
+  rules:
+  - host: ydc-ydonde.ddns.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: ydonde-ha-service
+            port:
+              number: 8123
+        path: /
+        pathType: Prefix

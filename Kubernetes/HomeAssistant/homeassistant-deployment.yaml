@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ydonde-ha
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ydonde-ha
+  template:
+    metadata:
+      labels:
+        app: ydonde-ha
+    spec:
+      containers:
+        - name: ydonde-ha
+          image: homeassistant/home-assistant
+          ports:
+            - containerPort: 8123
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: homeassistant-pvc
